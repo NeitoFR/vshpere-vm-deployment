@@ -1,0 +1,60 @@
+- hosts: all
+  become: yes
+  vars:
+    linuxusers:
+      - name: "neito"
+        pubkey: "{{ lookup('file', '~/.ssh/vsphere_vm.pub') }}"
+        privkey: "{{ lookup('file', '~/.ssh/vsphere_vm') }}"
+    packages:
+      - vim
+      - wget
+      - curl
+
+  pre_tasks:
+    - name: "Add SSH public key"
+      authorized_key:
+        user: "{{ item.name }}"
+        key: "{{ item.pubkey }}"
+      loop: "{{ linuxusers }}"
+
+    - name: "Update all"
+      yum:
+        name: "*"
+        state: latest
+
+    - name: "Ensure a list of packages installed"
+      yum:
+        name: "{{ packages }}"
+        state: present
+
+  roles:
+    - role: gantsign.oh-my-zsh
+      users:
+        - username: neito
+          oh_my_zsh:
+            theme: robbyrussell
+            plugins:
+              - git
+              - sudo
+              - kubectl
+              - docker
+              - docker-compose
+
+    - role: geerlingguy.git
+      git_install_from_source: true
+      git_install_from_source_force_update: true
+
+    - role: ericsysmin.docker.docker
+
+  tasks:
+    - name: Ensure group "docker" exists with correct gid
+      group:
+        name: docker
+        state: present
+
+    - name: Add user to docker group
+      user:
+        name: "{{ item.name }}"
+        groups: docker
+        append: yes
+      loop: "{{ linuxusers }}"
