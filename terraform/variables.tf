@@ -50,6 +50,10 @@ variable "vm_memory" {
     type = string
 }
 
+variable "disk_size" {
+    type = string
+}
+
 variable "tpl_name" {
     type = string
 }

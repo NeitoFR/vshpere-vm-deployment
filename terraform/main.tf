@@ -49,10 +49,6 @@ data "vsphere_network" "network" {
   name          = var.vs_network
   datacenter_id = data.vsphere_datacenter.dc.id
 }
-// data "vsphere_virtual_machine" "template" {
-//     name = var.tpl_name
-//     datacenter_id = "${data.vsphere_datacenter.dc.id}"
-// }
 resource "vsphere_virtual_machine" "vm" {
   count            = var.vm_count
   name             = "${var.vm_name}_${count.index+1}"
@@ -77,6 +73,6 @@ resource "vsphere_virtual_machine" "vm" {
 
   disk {
     label = "disk0"
-    size  = 32
+    size  = var.disk_size
   }
 }

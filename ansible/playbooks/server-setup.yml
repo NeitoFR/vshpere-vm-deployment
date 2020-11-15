@@ -17,15 +17,15 @@
         key: "{{ item.pubkey }}"
       loop: "{{ linuxusers }}"
 
-    - name: "Update all"
-      yum:
-        name: "*"
-        state: latest
-
     - name: "Ensure a list of packages installed"
       yum:
         name: "{{ packages }}"
         state: present
+    
+    - name: "Update all"
+      yum:
+        name: "*"
+        state: latest
 
   roles:
     - role: gantsign.oh-my-zsh

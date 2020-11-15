@@ -1,5 +1,3 @@
-
-
 pipeline {
 
     agent { label "default-docker-slave" }

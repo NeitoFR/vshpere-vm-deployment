@@ -1,0 +1,10 @@
+[servers]
+%{ for ip in vm_ips ~}
+${ip}
+%{ endfor ~}
+
+[servers:vars]
+ansible_connection=ssh
+ansible_user=neito
+ansible_ssh_pass=predix
+ansible_sudo_pass=predix
