@@ -4,3 +4,4 @@ terraform/terraform.tfvars
 terraform/plugins/
 terraform/.terraform
 terraform/terraform.tfstate.backup
+inventory

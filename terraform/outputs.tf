@@ -5,9 +5,9 @@ resource "local_file" "AnsibleInventory" {
   vm_ips = "${flatten(vsphere_virtual_machine.vm.*.guest_ip_addresses[*][0])}"
  }
  )
- filename = "../inventory"
+ filename = "../ansible/inventory"
 }
 
 output "vm_ips" {
-    value = "${flatten(vsphere_virtual_machine.vm.*.guest_ip_addresses)[*][0]}"
+    value = "${flatten(vsphere_virtual_machine.vm.*.guest_ip_addresses[*][0])}"
 }
