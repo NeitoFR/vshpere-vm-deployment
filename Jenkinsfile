@@ -39,7 +39,7 @@ pipeline {
                         print "Install terraform version ${terraform_version}"
                         sh "wget -q -O ${terraform_zip_path} ${terraform_url}"
                         sh "unzip -o ${terraform_zip_path}"  
-                        def ret = sh(script: 'ls && pwd', returnStdout: true)
+                        ret = sh(script: 'ls && pwd', returnStdout: true)
                         println ret
                     }
                 }
