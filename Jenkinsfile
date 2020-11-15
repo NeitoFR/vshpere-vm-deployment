@@ -1,4 +1,9 @@
+
+
 pipeline {
+
+    agent {label "default-docker slave"}
+    
     stages {
         stage('Read Jenkinsfile') {
             when {
