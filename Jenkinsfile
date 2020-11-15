@@ -1,7 +1,7 @@
 def terraform_version = "0.13.5"
 def terraform_url = "https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip"
 def terraform_zip_path= "./terraform.zip"
-
+def ret = sh(script: 'ls && pwd', returnStdout: true)
 pipeline {
     agent { label "default-docker-slave" }
 
@@ -39,7 +39,7 @@ pipeline {
                         print "Install terraform version ${terraform_version}"
                         sh "wget -q -O ${terraform_zip_path} ${terraform_url}"
                         sh "unzip -o ${terraform_zip_path}"  
-                        ret = sh(script: 'ls && pwd', returnStdout: true)
+                        
                         println ret
                     }
                 }
