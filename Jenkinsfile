@@ -38,9 +38,11 @@ pipeline {
                         MY_FILES = sh(script: 'ls && pwd', returnStdout: true)
                     }
                     steps {
-                        sh "cd terraform_dir"
+                        dir('terraform_dir') {
+
                         sh "terraform init"     
                         echo "$MY_FILES"
+                        }
 
                     }
                 }
