@@ -34,9 +34,14 @@ pipeline {
             }
             stages { 
                 stage ('Apply terraform') { 
+                    environment {
+                        MY_FILES = sh(script: 'ls && pwd', returnStdout: true)
+                    }
                     steps {
                         sh "cd terraform_dir"
-                        sh "terraform init"
+                        sh "terraform init"     
+                        echo "$MY_FILES"
+
                     }
                 }
             }
